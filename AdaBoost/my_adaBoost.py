@@ -96,7 +96,7 @@ class AdaBoostClassifier:
     def pred(self, x_test):
 
         x_test = np.array(x_test).reshape(-1, self.features_num)
-        total_est = np.zeros((x_test.shape[0], 1))
+        total_est = np.zeros((x_test.shape[0], 1)).flatten(1)
 
         for ii in range(self.real_n_estimator):
             total_est += total_est + self.G[ii].pred(x_test) * self.alpha[ii]
@@ -114,7 +114,15 @@ classLabels = [1.0, 1.0, -1.0, -1.0, 1.0]
 
 ada = AdaBoostClassifier()
 ada.train(dataMat, classLabels)
-print ada.pred([1, 2.1])
+print ada.pred(dataMat[0:2])
 
+# 用skelarn的数据集进行测试
+from sklearn import datasets
+from sklearn.metrics import accuracy_score
 
-
+breast_cancer = datasets.load_breast_cancer()
+ada1 = AdaBoostClassifier()
+y = breast_cancer.target
+y[y == 0] = -1
+ada1.train(breast_cancer.data, y)
+print 'the data accuracy is:', accuracy_score(y, ada1.pred(breast_cancer.data))
