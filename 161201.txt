@@ -1,0 +1,14 @@
+添加本地git仓库
+git config --global user.name oldinaction #用户名
+git config --global user.email oldinaction@qq.com #邮箱
+git init
+git add test.html
+git add . # 添加当前文件夹下所有内容
+git commit -m "comments" 
+在github上创建仓库repo1 
+在git Bash中使用命令ssh-keygen -t rsa -C "oldinaction@qq.com" #改成你的邮箱
+连续敲3个回车，在C:/User/Administrator/.ssh下生成id_rsa.pub 
+把pub中的内容复制到github上的settings中的SSH KEY中
+git remote add origin git@github.com:oldinaction/demo.git #其中git@github.com:oldinaction/demo.git是我们github中demo项目的ssh地址
+git push -u origin master
+git push --all -f可以把刚刚commit的内容强行推送到git上，但会覆盖掉里面内容
