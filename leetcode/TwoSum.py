@@ -24,17 +24,14 @@ class Solution(object):
         nums_order = {}
         sml_ind = 0
         for i in range(len(nums)):
-            if target > nums[i]:
+            if target >= nums[i]:
                 sml_ind = i
 
             if nums[i] not in nums_order.keys():
                 nums_order[nums[i]] = []
             nums_order[nums[i]].append(ind[i])
 
-        if sml_ind < 1:
-            return []
-
-        for i in range(sml_ind+1):
+        for i in range(len(nums)):
             exce_num = target - nums[i]
             if exce_num in nums_order.keys():
                 if exce_num != nums[i]:
@@ -47,4 +44,4 @@ class Solution(object):
         return []
 
 s = Solution()
-print s.twoSum([3, 3], 6)
+print s.twoSum([-3, 4, 3, 90], 0)
